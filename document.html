@@ -2,19 +2,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="stylesheet" href="style.css">
-
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 <script src="https://unpkg.com/pinch-zoom-js@2.3.4/dist/pinch-zoom.umd.js"></script>
-
 <title>Документ</title>
 </head>
 
 <body>
-<div class="container">
 
-<div class="title">Удостоверение личности</div>
+<div class="container">
 
 <div class="tabs">
   <div class="tab active" id="tabDoc">Документ</div>
@@ -23,44 +20,43 @@
 
 <div id="documentSection">
 
-<pinch-zoom>
-  <img src="my-id.jpg" class="document-image">
-</pinch-zoom>
-
-<div class="primary-btn" id="openAccessBtn">Открыть доступ</div>
+<div class="photo-wrapper">
+  <pinch-zoom>
+    <img src="my-id.jpg" class="document-image">
+  </pinch-zoom>
+</div>
 
 </div>
 
 <div id="requisitesSection" class="hidden">
-
-<div class="info-item">
-  <div class="label">ФИО</div>
-  <div class="value">ТВОЁ ФИО</div>
-</div>
-
-<div class="info-item">
-  <div class="label">ИИН</div>
-  <div class="value">123456789012</div>
-</div>
-
-<div class="info-item">
-  <div class="label">Дата рождения</div>
-  <div class="value">01.01.2000</div>
-</div>
-
-<div class="primary-btn" id="shareBtn">Отправить реквизиты</div>
-
+  <p><strong>ФИО</strong><br>ТВОЁ ФИО</p>
+  <p><strong>ИИН</strong><br>123456789012</p>
+  <p><strong>Дата рождения</strong><br>01.01.2000</p>
 </div>
 
 </div>
 
-<div id="qrModal" class="qr-modal hidden">
-  <div class="qr-sheet">
-    <div class="drag-line"></div>
+<div class="bottom-button">
+  <div class="primary-btn btn-blue" id="openAccessBtn">
+    🔳 Открыть доступ
+  </div>
+
+  <div class="primary-btn btn-gray hidden" id="shareBtn">
+    🔗 Отправить реквизиты
+  </div>
+</div>
+
+<div id="qrScreen" class="qr-fullscreen hidden">
+  <div class="qr-header">
+    <div></div>
+    <div class="close-btn" id="closeQR">✕</div>
+  </div>
+
+  <div class="qr-content">
     <h2>Доступ к документу</h2>
     <div id="qrcode"></div>
-    <div id="timer" class="timer"></div>
-    <div id="shortCode" class="short-code"></div>
+    <div class="timer" id="timer"></div>
+    <div class="short-code" id="shortCode"></div>
   </div>
 </div>
 
