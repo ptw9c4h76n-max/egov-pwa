@@ -152,6 +152,15 @@ body {
   font-size: 18px;
   margin-top: 4px;
 }
+.section {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.section.hidden {
+  opacity: 0;
+  transform: translateX(10px);
+  pointer-events: none;
+}
 
 .hidden {
   display: none;
