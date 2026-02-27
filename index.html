@@ -3,31 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="style.css">
-<title>Цифровые документы</title>
+<title>Главная</title>
 </head>
-<body>
 
+<body>
 <div class="container">
 
-<div style="font-size:34px;font-weight:700;margin-bottom:30px;">
-Цифровые документы
-</div>
+<div class="title">Цифровые документы</div>
 
-<div class="card">
-  <div class="row" onclick="openDoc()">
-    <div>Удостоверение личности</div>
-    <div class="arrow">›</div>
+<a href="document.html" class="doc-card">
+  <img src="your-id.jpg">
+  <div>
+    <div style="font-weight:600;">Удостоверение личности</div>
   </div>
-</div>
+</a>
 
 </div>
-
-<script>
-function openDoc(){
-  window.location.href = "document.html";
-}
-</script>
-
 </body>
 </html>
