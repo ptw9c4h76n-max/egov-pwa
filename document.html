@@ -2,8 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">  
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="stylesheet" href="style.css">
 
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
@@ -18,21 +17,42 @@
 <div class="title">Удостоверение личности</div>
 
 <div class="tabs">
- <div class="tab active" id="tabDoc">Документ</div>
-<div class="tab" id="tabReq">Реквизиты</div>
-
-<div id="documentSection">...</div>
-<div id="requisitesSection" class="hidden">...</div>
+  <div class="tab active" id="tabDoc">Документ</div>
+  <div class="tab" id="tabReq">Реквизиты</div>
 </div>
 
-<!-- ДОКУМЕНТ -->
 <div id="documentSection">
 
 <pinch-zoom>
   <img src="your-id.jpg" class="document-image">
 </pinch-zoom>
 
-<div class="primary-btn" onclick="openAccess()">Открыть доступ</div>
+<div class="primary-btn" id="openAccessBtn">Открыть доступ</div>
+
+</div>
+
+<div id="requisitesSection" class="hidden">
+
+<div class="info-item">
+  <div class="label">ФИО</div>
+  <div class="value">ТВОЁ ФИО</div>
+</div>
+
+<div class="info-item">
+  <div class="label">ИИН</div>
+  <div class="value">123456789012</div>
+</div>
+
+<div class="info-item">
+  <div class="label">Дата рождения</div>
+  <div class="value">01.01.2000</div>
+</div>
+
+<div class="primary-btn" id="shareBtn">Отправить реквизиты</div>
+
+</div>
+
+</div>
 
 <div id="qrModal" class="qr-modal hidden">
   <div class="qr-sheet">
@@ -44,53 +64,6 @@
   </div>
 </div>
 
-</div>
-
-<!-- РЕКВИЗИТЫ -->
-<div id="requisitesSection" class="hidden">
-
-<div class="info-item">
-  <div class="label">ФИО</div>
-  <div class="value">Зәрубаев  Серікболсын Асхатұлы</div>
-</div>
-
-<div class="info-item">
-  <div class="label">ИИН</div>
-  <div class="value">031103551653</div>
-</div>
-
-<div class="info-item">
-  <div class="label">Дата рождения</div>
-  <div class="value">03.11.2003</div>
-</div>
-
-  <div class="info-item">
-  <div class="label">Номер документа</div>
-  <div class="value">059261764</div>
-</div>
-  
-   <div class="info-item">
-  <div class="label">Дата выдачи</div>
-  <div class="value">30.10.2024</div>
-</div>
-  
-   <div class="info-item">
-  <div class="label">Срок выдачи</div>
-  <div class="value">29.10.2034</div>
-</div>
-
-<div class="primary-btn" onclick="shareData()">Отправить реквизиты</div>
-
-</div>
-
-</div>
-<div id="faceModal" class="face-modal hidden">
-  <div class="face-box">
-    <div class="face-icon"></div>
-    <div class="face-text">Подтвердите через Face ID</div>
 <script src="app.js"></script>
-
-  </div>
-</div>  
 </body>
 </html>
