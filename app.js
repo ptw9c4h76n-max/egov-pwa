@@ -1,11 +1,15 @@
 function showDocument() {
   document.getElementById("documentSection").classList.remove("hidden");
   document.getElementById("requisitesSection").classList.add("hidden");
+  document.getElementById("tabDoc").classList.add("active");
+  document.getElementById("tabReq").classList.remove("active");
 }
 
 function showRequisites() {
   document.getElementById("documentSection").classList.add("hidden");
   document.getElementById("requisitesSection").classList.remove("hidden");
+  document.getElementById("tabReq").classList.add("active");
+  document.getElementById("tabDoc").classList.remove("active");
 }
 
 function openAccess() {
@@ -21,17 +25,17 @@ function openAccess() {
   document.getElementById("qrcode").innerHTML = "";
   new QRCode(document.getElementById("qrcode"), {
     text: randomCode.toString(),
-    width: 200,
-    height: 200
+    width: 220,
+    height: 220
   });
 
   let time = 60;
-  timerEl.innerText = "Срок действия: 01:00";
+  timerEl.innerText = "Срок действия QR-кода: 01:00";
 
   const interval = setInterval(() => {
     time--;
     let seconds = time < 10 ? "0" + time : time;
-    timerEl.innerText = "Срок действия: 00:" + seconds;
+    timerEl.innerText = "Срок действия QR-кода: 00:" + seconds;
 
     if (time <= 0) {
       clearInterval(interval);
@@ -52,7 +56,5 @@ async function shareData() {
       title: "Реквизиты",
       text: text
     });
-  } else {
-    alert("Функция не поддерживается");
   }
 }
