@@ -14,10 +14,7 @@ function showRequisites() {
 document.getElementById("shareBtn").classList.remove("hidden");
 }
 
-function openAccess() {
-  const modal = document.getElementById("qrModal");
-  const timerEl = document.getElementById("timer");
-  const shortCodeEl = document.getElementById("shortCode");
+
 
   modal.classList.remove("hidden");
 
