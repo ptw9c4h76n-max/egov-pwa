@@ -174,5 +174,5 @@ body {
   width: 100%;
 }
 .qr-modal.hidden {
-  display: none;
+  display: none; !important
 }
