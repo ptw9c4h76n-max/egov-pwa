@@ -4,62 +4,62 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="style.css">
+
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+<script src="https://unpkg.com/pinch-zoom-js@2.3.4/dist/pinch-zoom.umd.js"></script>
+
 <title>Документ</title>
 </head>
-<body>
 
+<body>
 <div class="container">
 
-<!-- Tabs -->
+<div class="title">Удостоверение личности</div>
+
 <div class="tabs">
-  <div class="tab active" id="tabDoc">Документ</div>
-  <div class="tab" id="tabReq">Реквизиты</div>
+  <div class="tab active" id="tabDoc" onclick="showDocument()">Документ</div>
+  <div class="tab" id="tabReq" onclick="showRequisites()">Реквизиты</div>
 </div>
 
-<!-- Фото -->
-<div id="docSection">
-  <div class="card">
-    <img src="my-id.jpg" class="id-photo">
-  </div>
-</div>
+<!-- ДОКУМЕНТ -->
+<div id="documentSection">
 
-<!-- Реквизиты -->
-<div id="reqSection" class="hidden">
-  <div class="card info">
-    <div class="label">ФИО</div>
-    <div class="value">ТВОЁ ФИО</div>
+<pinch-zoom>
+  <img src="your-id.jpg" class="document-image">
+</pinch-zoom>
 
-    <div class="label">ИИН</div>
-    <div class="value">123456789012</div>
+<div class="primary-btn" onclick="openAccess()">Открыть доступ</div>
 
-    <div class="label">Дата рождения</div>
-    <div class="value">01.01.2000</div>
-  </div>
+<div id="qrSection" class="qr-wrapper hidden">
+  <div id="qrcode"></div>
+  <div class="timer" id="timer"></div>
+  <div class="short-code" id="shortCode"></div>
 </div>
 
 </div>
 
-<!-- Кнопки -->
-<div class="bottom">
-  <div class="btn blue" id="openBtn">
-    <span class="icon">▢</span>
-    Открыть доступ
-  </div>
+<!-- РЕКВИЗИТЫ -->
+<div id="requisitesSection" class="hidden">
 
-  <div class="btn white hidden" id="shareBtn">
-    <span class="icon">⇪</span>
-    Отправить реквизиты
-  </div>
+<div class="info-item">
+  <div class="label">ФИО</div>
+  <div class="value">ТВОЁ ФИО</div>
 </div>
 
-<!-- QR без blur и затемнения -->
-<div id="qrBox" class="qr-box hidden">
-  <div class="qr-content">
-    <div id="qrcode"></div>
-    <div class="timer" id="timer"></div>
-    <div class="code" id="code"></div>
-  </div>
+<div class="info-item">
+  <div class="label">ИИН</div>
+  <div class="value">123456789012</div>
+</div>
+
+<div class="info-item">
+  <div class="label">Дата рождения</div>
+  <div class="value">01.01.2000</div>
+</div>
+
+<div class="primary-btn" onclick="shareData()">Отправить реквизиты</div>
+
+</div>
+
 </div>
 
 <script src="app.js"></script>
