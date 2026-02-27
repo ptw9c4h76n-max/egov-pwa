@@ -3,8 +3,12 @@ let qrInterval;
 function showDocument() {
   document.getElementById("documentSection").classList.remove("hidden");
   document.getElementById("requisitesSection").classList.add("hidden");
+
+  document.getElementById("tabDoc").classList.add("active");
+  document.getElementById("tabReq").classList.remove("active");
+
   document.getElementById("openBtn").classList.remove("hidden");
-document.getElementById("shareBtn").classList.add("hidden");
+  document.getElementById("shareBtn").classList.add("hidden");
 }
 
 function showRequisites() {
