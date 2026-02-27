@@ -4,56 +4,48 @@ document.addEventListener("DOMContentLoaded", function() {
   const tabReq = document.getElementById("tabReq");
   const documentSection = document.getElementById("documentSection");
   const requisitesSection = document.getElementById("requisitesSection");
+  const openBtn = document.getElementById("openAccessBtn");
+  const shareBtn = document.getElementById("shareBtn");
 
-  if (tabDoc && tabReq) {
-    tabDoc.addEventListener("click", function() {
-      documentSection.classList.remove("hidden");
-      requisitesSection.classList.add("hidden");
-      tabDoc.classList.add("active");
-      tabReq.classList.remove("active");
-    });
+  tabDoc.addEventListener("click", function() {
+    documentSection.classList.remove("hidden");
+    requisitesSection.classList.add("hidden");
+    tabDoc.classList.add("active");
+    tabReq.classList.remove("active");
+  });
 
-    tabReq.addEventListener("click", function() {
-      documentSection.classList.add("hidden");
-      requisitesSection.classList.remove("hidden");
-      tabReq.classList.add("active");
-      tabDoc.classList.remove("active");
-    });
-  }
+  tabReq.addEventListener("click", function() {
+    documentSection.classList.add("hidden");
+    requisitesSection.classList.remove("hidden");
+    tabReq.classList.add("active");
+    tabDoc.classList.remove("active");
+  });
 
-  const openBtn = document.querySelector(".primary-btn");
+  openBtn.addEventListener("click", function() {
+    showQR();
+  });
 
-  if (openBtn) {
-    openBtn.addEventListener("click", function() {
-      openAccess();
-    });
-  }
+  shareBtn.addEventListener("click", async function() {
+    const text = `
+ФИО: ТВОЁ ФИО
+ИИН: 123456789012
+Дата рождения: 01.01.2000
+`;
+
+    if (navigator.share) {
+      await navigator.share({
+        title: "Реквизиты",
+        text: text
+      });
+    }
+  });
 
 });
-
-
-function openAccess() {
-
-  const face = document.getElementById("faceModal");
-  if (!face) {
-    showQR();
-    return;
-  }
-
-  face.classList.remove("hidden");
-
-  setTimeout(() => {
-    face.classList.add("hidden");
-    showQR();
-  }, 1500);
-}
 
 
 function showQR() {
 
   const modal = document.getElementById("qrModal");
-  if (!modal) return;
-
   modal.classList.remove("hidden");
 
   const randomCode = Math.floor(100000 + Math.random() * 900000);
