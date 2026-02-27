@@ -14,8 +14,12 @@ function showDocument() {
 function showRequisites() {
   document.getElementById("documentSection").classList.add("hidden");
   document.getElementById("requisitesSection").classList.remove("hidden");
+
+  document.getElementById("tabReq").classList.add("active");
+  document.getElementById("tabDoc").classList.remove("active");
+
   document.getElementById("openBtn").classList.add("hidden");
-document.getElementById("shareBtn").classList.remove("hidden");
+  document.getElementById("shareBtn").classList.remove("hidden");
 }
 
 
