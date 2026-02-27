@@ -1,55 +1,52 @@
+let qrInterval;
+
 function showDocument() {
   document.getElementById("documentSection").classList.remove("hidden");
   document.getElementById("requisitesSection").classList.add("hidden");
-  document.getElementById("tabDoc").classList.add("active");
-  document.getElementById("tabReq").classList.remove("active");
 }
 
 function showRequisites() {
   document.getElementById("documentSection").classList.add("hidden");
   document.getElementById("requisitesSection").classList.remove("hidden");
-  document.getElementById("tabReq").classList.add("active");
-  document.getElementById("tabDoc").classList.remove("active");
 }
 
 function openAccess() {
-  const qrSection = document.getElementById("qrSection");
+  const modal = document.getElementById("qrModal");
   const timerEl = document.getElementById("timer");
   const shortCodeEl = document.getElementById("shortCode");
 
-  qrSection.classList.remove("hidden");
+  modal.classList.remove("hidden");
 
-  const randomCode = Math.floor(100000 + Math.random() * 900000);
-  shortCodeEl.innerText = randomCode;
+  const code = Math.floor(100000 + Math.random() * 900000);
+  shortCodeEl.innerText = code;
 
   document.getElementById("qrcode").innerHTML = "";
   new QRCode(document.getElementById("qrcode"), {
-    text: randomCode.toString(),
+    text: code.toString(),
     width: 220,
     height: 220
   });
 
   let time = 60;
-  timerEl.innerText = "Срок действия QR-кода: 01:00";
 
-  const interval = setInterval(() => {
+  qrInterval = setInterval(() => {
     time--;
-    let seconds = time < 10 ? "0" + time : time;
-    timerEl.innerText = "Срок действия QR-кода: 00:" + seconds;
+    const seconds = time < 10 ? "0" + time : time;
+    timerEl.innerText = "Срок действия: 00:" + seconds;
 
     if (time <= 0) {
-      clearInterval(interval);
-      qrSection.classList.add("hidden");
+      closeQR();
     }
   }, 1000);
 }
 
+function closeQR() {
+  clearInterval(qrInterval);
+  document.getElementById("qrModal").classList.add("hidden");
+}
+
 async function shareData() {
-  const text = `
-ФИО: ТВОЁ ФИО
-ИИН: 123456789012
-Дата рождения: 01.01.2000
-`;
+  const text = `ФИО: ТВОЁ ФИО`;
 
   if (navigator.share) {
     await navigator.share({
