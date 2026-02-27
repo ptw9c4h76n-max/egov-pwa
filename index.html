@@ -2,23 +2,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="manifest" href="manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="style.css">
 <title>Цифровые документы</title>
 </head>
 <body>
 
 <div class="container">
-  <div class="header-title">Цифровые документы</div>
 
-  <div class="card-list">
-    <a href="document.html" class="list-item">
-      Удостоверение личности
-      <span class="chevron">›</span>
-    </a>
+<div style="font-size:34px;font-weight:700;margin-bottom:30px;">
+Цифровые документы
+</div>
+
+<div class="card">
+  <div class="row" onclick="openDoc()">
+    <div>Удостоверение личности</div>
+    <div class="arrow">›</div>
   </div>
 </div>
+
+</div>
+
+<script>
+function openDoc(){
+  window.location.href = "document.html";
+}
+</script>
 
 </body>
 </html>
