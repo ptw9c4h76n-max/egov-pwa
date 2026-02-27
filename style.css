@@ -1,41 +1,52 @@
-body {
+* {
+  box-sizing: border-box;
+}
+
+html, body {
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
   background: #ffffff;
   color: #000;
-  padding-bottom: env(safe-area-inset-bottom);
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* отключаем масштабирование страницы */
+body {
+  touch-action: pan-y;
 }
 
 .container {
   padding: 20px;
+  padding-bottom: 120px;
 }
+
+/* ===== Главная ===== */
 
 .title {
   font-size: 28px;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-.doc-card {
+.list-card {
   background: #f2f3f7;
-  border-radius: 22px;
+  border-radius: 18px;
   padding: 18px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
+  font-weight: 600;
+  font-size: 17px;
   text-decoration: none;
-  color: #000;
+  color: black;
+  display: block;
 }
 
-.doc-card img {
-  width: 60px;
-  border-radius: 12px;
-}
+/* ===== Tabs ===== */
 
 .tabs {
   display: flex;
   background: #f2f3f7;
-  border-radius: 16px;
+  border-radius: 14px;
   padding: 4px;
   margin-bottom: 20px;
 }
@@ -45,89 +56,109 @@ body {
   text-align: center;
   padding: 10px;
   font-weight: 600;
-  border-radius: 12px;
-  cursor: pointer;
+  border-radius: 10px;
 }
 
 .tab.active {
   background: #ffffff;
 }
 
+/* ===== Фото ===== */
+
+.photo-wrapper {
+  overflow: hidden;
+  border-radius: 18px;
+}
+
 .document-image {
   width: 100%;
-  border-radius: 20px;
-  margin-bottom: 20px;
+  display: block;
+}
+
+/* ===== Кнопки снизу ===== */
+
+.bottom-button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px;
+  background: white;
 }
 
 .primary-btn {
-  background: #2f6df6;
-  color: #fff;
-  padding: 16px;
-  border-radius: 18px;
-  text-align: center;
-  font-weight: 600;
+  width: 100%;
+  padding: 18px;
+  border-radius: 16px;
   font-size: 17px;
-  cursor: pointer;
-}
-
-.qr-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  backdrop-filter: blur(10px);
+  font-weight: 600;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
-  z-index: 100;
+  align-items: center;
+  gap: 10px;
 }
 
-.qr-sheet {
-  background: #fff;
-  width: 100%;
-  border-radius: 24px 24px 0 0;
+.btn-blue {
+  background: #2f6df6;
+  color: white;
+}
+
+.btn-gray {
+  background: #f2f3f7;
+  color: #2f6df6;
+}
+
+/* ===== QR Fullscreen ===== */
+
+.qr-fullscreen {
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
   padding: 20px;
-  text-align: center;
 }
 
-.drag-line {
-  width: 40px;
-  height: 5px;
-  background: #ccc;
-  border-radius: 10px;
-  margin: auto;
-  margin-bottom: 15px;
+.qr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  width: 32px;
+  height: 32px;
+  background: #e5e5ea;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+}
+
+.qr-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.short-code {
+  background: #f2f3f7;
+  padding: 12px 25px;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .timer {
   color: #2f6df6;
   font-weight: 600;
-  margin-top: 10px;
-}
-
-.short-code {
-  background: #f2f3f7;
-  padding: 12px;
-  border-radius: 14px;
-  display: inline-block;
-  margin-top: 12px;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.info-item {
-  margin-bottom: 22px;
-}
-
-.label {
-  font-size: 14px;
-  color: #8e8e93;
-}
-
-.value {
-  font-size: 18px;
-  margin-top: 4px;
 }
 
 .hidden {
-  display: none !important;
+  display: none;
 }
