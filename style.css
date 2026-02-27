@@ -146,3 +146,27 @@ html, body {
   font-size: 20px;
   font-weight: 600;
 }
+/* ===== Главный экран ===== */
+
+.card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.row {
+  padding: 18px;
+  font-size: 17px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.row:active {
+  background: #F2F2F7;
+}
+
+.arrow {
+  font-size: 20px;
+  color: #C7C7CC;
+}
