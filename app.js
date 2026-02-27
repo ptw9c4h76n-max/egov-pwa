@@ -1,76 +1,60 @@
-const tabDoc = document.getElementById("tabDoc");
-const tabReq = document.getElementById("tabReq");
-const docSection = document.getElementById("docSection");
-const reqSection = document.getElementById("reqSection");
-
-const openBtn = document.getElementById("openBtn");
-const shareBtn = document.getElementById("shareBtn");
-
-const qrBox = document.getElementById("qrBox");
-const timerEl = document.getElementById("timer");
-const codeEl = document.getElementById("code");
-
-let interval;
-let time = 60;
-
-/* Tabs */
-tabDoc.onclick = () => {
-  tabDoc.classList.add("active");
-  tabReq.classList.remove("active");
-  docSection.classList.remove("hidden");
-  reqSection.classList.add("hidden");
-  openBtn.classList.remove("hidden");
-  shareBtn.classList.add("hidden");
-};
-
-tabReq.onclick = () => {
-  tabReq.classList.add("active");
-  tabDoc.classList.remove("active");
-  docSection.classList.add("hidden");
-  reqSection.classList.remove("hidden");
-  openBtn.classList.add("hidden");
-  shareBtn.classList.remove("hidden");
-};
-
-/* QR */
-function newCode() {
-  return Math.floor(100000 + Math.random() * 900000);
+function showDocument() {
+  document.getElementById("documentSection").classList.remove("hidden");
+  document.getElementById("requisitesSection").classList.add("hidden");
+  document.getElementById("tabDoc").classList.add("active");
+  document.getElementById("tabReq").classList.remove("active");
 }
 
-function startTimer() {
-  time = 60;
-  timerEl.innerText = "Действителен " + time + " сек";
+function showRequisites() {
+  document.getElementById("documentSection").classList.add("hidden");
+  document.getElementById("requisitesSection").classList.remove("hidden");
+  document.getElementById("tabReq").classList.add("active");
+  document.getElementById("tabDoc").classList.remove("active");
+}
 
-  interval = setInterval(() => {
+function openAccess() {
+  const qrSection = document.getElementById("qrSection");
+  const timerEl = document.getElementById("timer");
+  const shortCodeEl = document.getElementById("shortCode");
+
+  qrSection.classList.remove("hidden");
+
+  const randomCode = Math.floor(100000 + Math.random() * 900000);
+  shortCodeEl.innerText = randomCode;
+
+  document.getElementById("qrcode").innerHTML = "";
+  new QRCode(document.getElementById("qrcode"), {
+    text: randomCode.toString(),
+    width: 220,
+    height: 220
+  });
+
+  let time = 60;
+  timerEl.innerText = "Срок действия QR-кода: 01:00";
+
+  const interval = setInterval(() => {
     time--;
-    timerEl.innerText = "Действителен " + time + " сек";
+    let seconds = time < 10 ? "0" + time : time;
+    timerEl.innerText = "Срок действия QR-кода: 00:" + seconds;
+
     if (time <= 0) {
       clearInterval(interval);
-      generateQR();
+      qrSection.classList.add("hidden");
     }
   }, 1000);
 }
 
-function generateQR() {
-  document.getElementById("qrcode").innerHTML = "";
-  let code = newCode();
-  codeEl.innerText = code;
+async function shareData() {
+  const text = `
+ФИО: ТВОЁ ФИО
+ИИН: 123456789012
+Дата рождения: 01.01.2000
+`;
 
-  new QRCode(document.getElementById("qrcode"), {
-    text: "ID-" + code,
-    width: 200,
-    height: 200
-  });
-
-  startTimer();
+  if (navigator.share) {
+    await navigator.share({
+      title: "Реквизиты",
+      text: text
+    });
+  }
 }
-
-openBtn.onclick = () => {
-  qrBox.classList.remove("hidden");
-  generateQR();
-};
-
-qrBox.onclick = () => {
-  qrBox.classList.add("hidden");
-  clearInterval(interval);
-};
