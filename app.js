@@ -1,78 +1,77 @@
-// ===== Tabs =====
 const tabDoc = document.getElementById("tabDoc");
 const tabReq = document.getElementById("tabReq");
-const docSec = document.getElementById("documentSection");
-const reqSec = document.getElementById("requisitesSection");
+const docSection = document.getElementById("docSection");
+const reqSection = document.getElementById("reqSection");
+const openBtn = document.getElementById("openBtn");
 const shareBtn = document.getElementById("shareBtn");
 
 tabDoc.onclick = () => {
   tabDoc.classList.add("active");
   tabReq.classList.remove("active");
-  docSec.classList.remove("hidden");
-  reqSec.classList.add("hidden");
+  docSection.classList.remove("hidden");
+  reqSection.classList.add("hidden");
+  openBtn.classList.remove("hidden");
   shareBtn.classList.add("hidden");
 };
 
 tabReq.onclick = () => {
   tabReq.classList.add("active");
   tabDoc.classList.remove("active");
-  docSec.classList.add("hidden");
-  reqSec.classList.remove("hidden");
+  docSection.classList.add("hidden");
+  reqSection.classList.remove("hidden");
+  openBtn.classList.add("hidden");
   shareBtn.classList.remove("hidden");
 };
 
-// ===== Pinch Zoom FIX =====
-const pz = new PinchZoom.default(
-  document.querySelector('.photo-wrapper'),
-  { draggableUnzoomed: false }
-);
-
 // ===== QR =====
-const openBtn = document.getElementById("openAccessBtn");
+
 const overlay = document.getElementById("qrOverlay");
 const sheet = document.getElementById("qrSheet");
 const timerEl = document.getElementById("timer");
-const shortCodeEl = document.getElementById("shortCode");
+const codeEl = document.getElementById("code");
 
 let interval;
-let seconds = 60;
+let time = 60;
 
-function generateCode() {
+function newCode() {
   return Math.floor(100000 + Math.random() * 900000);
 }
 
 function startTimer() {
-  seconds = 60;
-  timerEl.innerText = `Действителен ${seconds} сек`;
+  time = 60;
+  timerEl.innerText = "Действителен " + time + " сек";
 
   interval = setInterval(() => {
-    seconds--;
-    timerEl.innerText = `Действителен ${seconds} сек`;
-
-    if (seconds <= 0) {
+    time--;
+    timerEl.innerText = "Действителен " + time + " сек";
+    if (time <= 0) {
       clearInterval(interval);
-      shortCodeEl.innerText = generateCode();
-      startTimer();
+      generateQR();
     }
   }, 1000);
 }
 
-openBtn.onclick = () => {
-  overlay.classList.remove("hidden");
-  setTimeout(() => sheet.classList.add("active"), 10);
-
-  shortCodeEl.innerText = generateCode();
+function generateQR() {
+  document.getElementById("qrcode").innerHTML = "";
+  let code = newCode();
+  codeEl.innerText = code;
 
   new QRCode(document.getElementById("qrcode"), {
-    text: "ID-" + shortCodeEl.innerText,
+    text: "ID-" + code,
     width: 200,
     height: 200
   });
 
   startTimer();
+}
+
+openBtn.onclick = () => {
+  overlay.classList.remove("hidden");
+  setTimeout(() => sheet.classList.add("active"), 10);
+  generateQR();
 };
 
-// ===== Swipe Down Close =====
+// swipe down close
 let startY = 0;
 
 sheet.addEventListener("touchstart", e => {
@@ -81,7 +80,7 @@ sheet.addEventListener("touchstart", e => {
 
 sheet.addEventListener("touchmove", e => {
   let moveY = e.touches[0].clientY;
-  if (moveY - startY > 100) closeQR();
+  if (moveY - startY > 120) closeQR();
 });
 
 function closeQR() {
