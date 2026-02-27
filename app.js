@@ -6,12 +6,16 @@ document.addEventListener("DOMContentLoaded", function() {
   const requisitesSection = document.getElementById("requisitesSection");
   const openBtn = document.getElementById("openAccessBtn");
   const shareBtn = document.getElementById("shareBtn");
+  const qrScreen = document.getElementById("qrScreen");
+  const closeQR = document.getElementById("closeQR");
 
   tabDoc.addEventListener("click", function() {
     documentSection.classList.remove("hidden");
     requisitesSection.classList.add("hidden");
     tabDoc.classList.add("active");
     tabReq.classList.remove("active");
+    openBtn.classList.remove("hidden");
+    shareBtn.classList.add("hidden");
   });
 
   tabReq.addEventListener("click", function() {
@@ -19,58 +23,50 @@ document.addEventListener("DOMContentLoaded", function() {
     requisitesSection.classList.remove("hidden");
     tabReq.classList.add("active");
     tabDoc.classList.remove("active");
+    openBtn.classList.add("hidden");
+    shareBtn.classList.remove("hidden");
   });
 
   openBtn.addEventListener("click", function() {
-    showQR();
+    qrScreen.classList.remove("hidden");
+
+    const randomCode = Math.floor(100000 + Math.random() * 900000);
+    document.getElementById("shortCode").innerText = randomCode;
+
+    document.getElementById("qrcode").innerHTML = "";
+    new QRCode(document.getElementById("qrcode"), {
+      text: randomCode.toString(),
+      width: 220,
+      height: 220
+    });
+
+    let time = 60;
+    const timerEl = document.getElementById("timer");
+    timerEl.innerText = "Срок действия: 01:00";
+
+    const interval = setInterval(() => {
+      time--;
+      let seconds = time < 10 ? "0" + time : time;
+      timerEl.innerText = "Срок действия: 00:" + seconds;
+
+      if (time <= 0) {
+        clearInterval(interval);
+        qrScreen.classList.add("hidden");
+      }
+    }, 1000);
+  });
+
+  closeQR.addEventListener("click", function() {
+    qrScreen.classList.add("hidden");
   });
 
   shareBtn.addEventListener("click", async function() {
-    const text = `
-ФИО: ТВОЁ ФИО
-ИИН: 123456789012
-Дата рождения: 01.01.2000
-`;
-
     if (navigator.share) {
       await navigator.share({
         title: "Реквизиты",
-        text: text
+        text: "ФИО: ТВОЁ ФИО\nИИН: 123456789012\nДата рождения: 01.01.2000"
       });
     }
   });
 
 });
-
-
-function showQR() {
-
-  const modal = document.getElementById("qrModal");
-  modal.classList.remove("hidden");
-
-  const randomCode = Math.floor(100000 + Math.random() * 900000);
-  document.getElementById("shortCode").innerText = randomCode;
-
-  document.getElementById("qrcode").innerHTML = "";
-
-  new QRCode(document.getElementById("qrcode"), {
-    text: randomCode.toString(),
-    width: 220,
-    height: 220
-  });
-
-  let time = 60;
-  const timerEl = document.getElementById("timer");
-  timerEl.innerText = "Срок действия: 01:00";
-
-  const interval = setInterval(() => {
-    time--;
-    let seconds = time < 10 ? "0" + time : time;
-    timerEl.innerText = "Срок действия: 00:" + seconds;
-
-    if (time <= 0) {
-      clearInterval(interval);
-      modal.classList.add("hidden");
-    }
-  }, 1000);
-}
