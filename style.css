@@ -1,1 +1,80 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #ffffff;
+  color: #000;
+}
 
+.container {
+  padding: 20px;
+}
+
+.header {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #f2f3f7;
+  border-radius: 20px;
+  padding: 20px;
+  text-decoration: none;
+  color: black;
+  display: block;
+  font-weight: 600;
+}
+
+.tabs {
+  display: flex;
+  background: #f2f3f7;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: white;
+}
+
+.button {
+  background: #2f6df6;
+  color: white;
+  padding: 16px;
+  border-radius: 16px;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.qr-section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.info-block {
+  margin-bottom: 20px;
+}
+
+.label {
+  color: gray;
+  font-size: 14px;
+}
+
+.value {
+  font-size: 18px;
+  margin-top: 4px;
+}
