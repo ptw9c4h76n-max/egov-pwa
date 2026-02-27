@@ -2,9 +2,18 @@ const tabDoc = document.getElementById("tabDoc");
 const tabReq = document.getElementById("tabReq");
 const docSection = document.getElementById("docSection");
 const reqSection = document.getElementById("reqSection");
+
 const openBtn = document.getElementById("openBtn");
 const shareBtn = document.getElementById("shareBtn");
 
+const qrBox = document.getElementById("qrBox");
+const timerEl = document.getElementById("timer");
+const codeEl = document.getElementById("code");
+
+let interval;
+let time = 60;
+
+/* Tabs */
 tabDoc.onclick = () => {
   tabDoc.classList.add("active");
   tabReq.classList.remove("active");
@@ -23,16 +32,7 @@ tabReq.onclick = () => {
   shareBtn.classList.remove("hidden");
 };
 
-// ===== QR =====
-
-const overlay = document.getElementById("qrOverlay");
-const sheet = document.getElementById("qrSheet");
-const timerEl = document.getElementById("timer");
-const codeEl = document.getElementById("code");
-
-let interval;
-let time = 60;
-
+/* QR */
 function newCode() {
   return Math.floor(100000 + Math.random() * 900000);
 }
@@ -66,25 +66,11 @@ function generateQR() {
 }
 
 openBtn.onclick = () => {
-  overlay.classList.remove("hidden");
-  setTimeout(() => sheet.classList.add("active"), 10);
+  qrBox.classList.remove("hidden");
   generateQR();
 };
 
-// swipe down close
-let startY = 0;
-
-sheet.addEventListener("touchstart", e => {
-  startY = e.touches[0].clientY;
-});
-
-sheet.addEventListener("touchmove", e => {
-  let moveY = e.touches[0].clientY;
-  if (moveY - startY > 120) closeQR();
-});
-
-function closeQR() {
-  sheet.classList.remove("active");
-  setTimeout(() => overlay.classList.add("hidden"), 300);
+qrBox.onclick = () => {
+  qrBox.classList.add("hidden");
   clearInterval(interval);
-}
+};
