@@ -13,14 +13,23 @@ function showRequisites() {
 }
 
 function openAccess() {
-  const qrSection = document.getElementById("qrSection");
-  const timerEl = document.getElementById("timer");
-  const shortCodeEl = document.getElementById("shortCode");
 
-  qrSection.classList.remove("hidden");
+  const face = document.getElementById("faceModal");
+  face.classList.remove("hidden");
+
+  setTimeout(() => {
+    face.classList.add("hidden");
+    showQR();
+  }, 1800);
+}
+
+function showQR() {
+
+  const modal = document.getElementById("qrModal");
+  modal.classList.remove("hidden");
 
   const randomCode = Math.floor(100000 + Math.random() * 900000);
-  shortCodeEl.innerText = randomCode;
+  document.getElementById("shortCode").innerText = randomCode;
 
   document.getElementById("qrcode").innerHTML = "";
   new QRCode(document.getElementById("qrcode"), {
@@ -30,25 +39,28 @@ function openAccess() {
   });
 
   let time = 60;
-  timerEl.innerText = "Срок действия QR-кода: 01:00";
+  const timerEl = document.getElementById("timer");
+
+  timerEl.innerText = "Срок действия: 01:00";
 
   const interval = setInterval(() => {
     time--;
     let seconds = time < 10 ? "0" + time : time;
-    timerEl.innerText = "Срок действия QR-кода: 00:" + seconds;
+    timerEl.innerText = "Срок действия: 00:" + seconds;
 
     if (time <= 0) {
       clearInterval(interval);
-      qrSection.classList.add("hidden");
+      modal.classList.add("hidden");
     }
   }, 1000);
+}
 }
 
 async function shareData() {
   const text = `
-ФИО: ТВОЁ ФИО
-ИИН: 123456789012
-Дата рождения: 01.01.2000
+ФИО: Зәрубаев Серікболсын Асхатұлы
+ИИН: 031103551653
+Дата рождения: 03.11.2003
 `;
 
   if (navigator.share) {
