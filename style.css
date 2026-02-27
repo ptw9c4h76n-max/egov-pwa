@@ -67,53 +67,25 @@ body {
 
 /* Синяя кнопка */
 .primary-btn {
-  padding: 14px;
-  background: black;
-  color: white;
+  background: #2f6df6;
+  color: #fff;
+  padding: 16px;
+  border-radius: 18px;
   text-align: center;
-  border-radius: 12px;
-  width: 200px;
-  margin: 40px auto;
+  font-weight: 600;
+  font-size: 17px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
-.qr-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  z-index: 1000;
-  display: flex;
+.primary-btn:active {
+  transform: scale(0.98);
 }
 
-.qr-sheet {
-  background: #fff;
-  width: 100%;
-  height: 100%;
-  border-radius: 0;
-  padding: 20px;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-  touch-action: none;
-}
-
-.qr-modal.active .qr-sheet {
-  transform: translateY(0);
-}
-
-.drag-line {
-  width: 40px;
-  height: 5px;
-  background: #ccc;
-  border-radius: 10px;
-  margin: 10px auto 20px;
-}
-
-.hidden {
-  display: none;
-}
-@keyframes slideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+/* QR экран */
+.qr-wrapper {
+  margin-top: 20px;
+  text-align: center;
 }
 
 .timer {
