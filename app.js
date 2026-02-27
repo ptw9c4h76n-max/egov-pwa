@@ -3,11 +3,15 @@ let qrInterval;
 function showDocument() {
   document.getElementById("documentSection").classList.remove("hidden");
   document.getElementById("requisitesSection").classList.add("hidden");
+  document.getElementById("openBtn").classList.remove("hidden");
+document.getElementById("shareBtn").classList.add("hidden");
 }
 
 function showRequisites() {
   document.getElementById("documentSection").classList.add("hidden");
   document.getElementById("requisitesSection").classList.remove("hidden");
+  document.getElementById("openBtn").classList.add("hidden");
+document.getElementById("shareBtn").classList.remove("hidden");
 }
 
 function openAccess() {
