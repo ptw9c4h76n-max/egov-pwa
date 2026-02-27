@@ -192,3 +192,22 @@ body {
 .hidden {
   display: none;
 }
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  border-top: 1px solid #eee;
+}
+
+.nav-item {
+  font-size: 12px;
+  color: #8e8e93;
+}
+
+.nav-item.active {
+  color: #2f6df6;
+}
