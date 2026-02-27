@@ -8,7 +8,6 @@
 <script src="https://unpkg.com/pinch-zoom-js@2.3.4/dist/pinch-zoom.umd.js"></script>
 <title>Документ</title>
 </head>
-
 <body>
 
 <div class="container">
@@ -19,41 +18,49 @@
 </div>
 
 <div id="documentSection">
-
-<div class="photo-wrapper">
-  <pinch-zoom>
-    <img src="my-id.jpg" class="document-image">
-  </pinch-zoom>
-</div>
-
+  <div class="photo-wrapper">
+    <pinch-zoom>
+      <img src="my-id.jpg" class="document-image">
+    </pinch-zoom>
+  </div>
 </div>
 
 <div id="requisitesSection" class="hidden">
-  <p><strong>ФИО</strong><br>ТВОЁ ФИО</p>
-  <p><strong>ИИН</strong><br>123456789012</p>
-  <p><strong>Дата рождения</strong><br>01.01.2000</p>
+  <div class="info-block">
+    <div class="info-row">
+      <div class="label">ФИО</div>
+      <div class="value">ТВОЁ ФИО</div>
+    </div>
+    <div class="info-row">
+      <div class="label">ИИН</div>
+      <div class="value">123456789012</div>
+    </div>
+    <div class="info-row">
+      <div class="label">Дата рождения</div>
+      <div class="value">01.01.2000</div>
+    </div>
+  </div>
 </div>
 
 </div>
 
-<div class="bottom-button">
-  <div class="primary-btn btn-blue" id="openAccessBtn">
+<div class="bottom-buttons">
+  <div class="button btn-blue" id="openAccessBtn">
     🔳 Открыть доступ
   </div>
 
-  <div class="primary-btn btn-gray hidden" id="shareBtn">
+  <div class="button btn-white hidden" id="shareBtn">
     🔗 Отправить реквизиты
   </div>
 </div>
 
-<div id="qrScreen" class="qr-fullscreen hidden">
+<div id="qrScreen" class="qr-screen hidden">
   <div class="qr-header">
-    <div></div>
+    <div class="qr-title">Доступ к документу</div>
     <div class="close-btn" id="closeQR">✕</div>
   </div>
 
   <div class="qr-content">
-    <h2>Доступ к документу</h2>
     <div id="qrcode"></div>
     <div class="timer" id="timer"></div>
     <div class="short-code" id="shortCode"></div>
