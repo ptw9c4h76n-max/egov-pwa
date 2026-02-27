@@ -211,3 +211,6 @@ body {
 .nav-item.active {
   color: #2f6df6;
 }
+.hidden {
+  display: none !important;
+}
