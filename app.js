@@ -74,3 +74,41 @@ function showQR() {
     }
   }, 1000);
 }
+function closeQR() {
+  const modal = document.getElementById("qrModal");
+  modal.classList.add("hidden");
+}
+// === Swipe down для закрытия QR ===
+
+const qrModal = document.getElementById("qrModal");
+
+let startY = 0;
+let currentY = 0;
+let isDragging = false;
+
+qrModal.addEventListener("touchstart", (e) => {
+  startY = e.touches[0].clientY;
+  isDragging = true;
+});
+
+qrModal.addEventListener("touchmove", (e) => {
+  if (!isDragging) return;
+
+  currentY = e.touches[0].clientY;
+  let diff = currentY - startY;
+
+  if (diff > 0) {
+    qrModal.style.transform = `translateY(${diff}px)`;
+  }
+});
+
+qrModal.addEventListener("touchend", () => {
+  let diff = currentY - startY;
+
+  if (diff > 120) {
+    closeQR();
+  }
+
+  qrModal.style.transform = "translateY(0)";
+  isDragging = false;
+});
