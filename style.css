@@ -4,6 +4,7 @@ body {
   background: #ffffff;
   color: #000;
   padding-bottom: env(safe-area-inset-bottom);
+  overscroll-behavior: none;
 }
 
 .container {
@@ -151,4 +152,9 @@ body {
 #qrcode img {
   margin: 0 auto;
   display: block;
+}
+
+pinch-zoom {
+  display: block;
+  touch-action: none;
 }
