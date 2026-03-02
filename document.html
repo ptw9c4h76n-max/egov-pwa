@@ -81,6 +81,14 @@ content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=
 </div>
 
   <script>
+document.addEventListener("touchmove", function(e) {
+  if (!e.target.closest("pinch-zoom")) {
+    e.preventDefault();
+  }
+}, { passive: false });
+</script>
+  
+  <script>
 document.addEventListener("gesturestart", e => e.preventDefault());
 document.addEventListener("gesturechange", e => e.preventDefault());
 document.addEventListener("gestureend", e => e.preventDefault());
