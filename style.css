@@ -132,3 +132,8 @@ body {
 .hidden {
   display: none !important;
 }
+#qrcode {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
