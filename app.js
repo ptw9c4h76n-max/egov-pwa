@@ -1,3 +1,4 @@
+let qrInterval = null;
 document.addEventListener("DOMContentLoaded", function() {
 
   const tabDoc = document.getElementById("tabDoc");
