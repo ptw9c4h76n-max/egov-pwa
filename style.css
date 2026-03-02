@@ -167,3 +167,42 @@ body {
   transform-origin: center center;
   will-change: transform;
 }
+.image-viewer {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+}
+
+.viewer-header {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  color: #fff;
+  font-size: 17px;
+}
+
+.close-btn {
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.viewer-content {
+  flex: 1;
+  overflow: hidden;
+  touch-action: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#viewerImage {
+  max-width: 100%;
+  max-height: 100%;
+  transform-origin: center center;
+  will-change: transform;
+}
