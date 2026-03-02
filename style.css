@@ -158,3 +158,15 @@ pinch-zoom {
   display: block;
   touch-action: pan-x pan-y;
 }
+
+.zoom-wrapper {
+  overflow: hidden;
+  border-radius: 20px;
+  touch-action: none;
+}
+
+#zoomImage {
+  width: 100%;
+  transform-origin: center center;
+  will-change: transform;
+}
