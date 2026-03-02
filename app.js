@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const openBtn = document.getElementById("openAccessBtn");
   const shareBtn = document.getElementById("shareBtn");
 
+  // === Tabs ===
   tabDoc.addEventListener("click", function() {
     documentSection.classList.remove("hidden");
     requisitesSection.classList.add("hidden");
@@ -23,15 +24,18 @@ document.addEventListener("DOMContentLoaded", function() {
     tabDoc.classList.remove("active");
   });
 
+  // === Open QR ===
   openBtn.addEventListener("click", function() {
     showQR();
   });
 
+  // === Share ===
   shareBtn.addEventListener("click", async function() {
     const text = `
-ФИО: ТВОЁ ФИО
-ИИН: 123456789012
-Дата рождения: 01.01.2000
+ФИО: Зәрубаев Серікболсын Асхатұлы
+ИИН: 031103551653
+Дата рождения: 31.11.2003
+Номер документа: 059261764
 `;
 
     if (navigator.share) {
@@ -42,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-  // === Swipe down ===
+  // === Swipe down QR modal ===
   const qrModal = document.getElementById("qrModal");
 
   let startY = 0;
@@ -68,23 +72,122 @@ document.addEventListener("DOMContentLoaded", function() {
   qrModal.addEventListener("touchend", () => {
     let diff = currentY - startY;
 
-    if (diff > 120) {
-      closeQR();
-    }
+    if (diff > 120) closeQR();
 
     qrModal.style.transform = "translateY(0)";
     isDragging = false;
   });
 
+  // =========================
+  // === IMAGE ZOOM SYSTEM ===
+  // =========================
+
+  const img = document.getElementById("zoomImage");
+  if (!img) return;
+
+  const wrapper = img.parentElement;
+
+  let scale = 1;
+  let lastScale = 1;
+
+  let startDistance = 0;
+
+  let startX = 0;
+  let startY = 0;
+  let translateX = 0;
+  let translateY = 0;
+
+  let lastTap = 0;
+
+  function getDistance(touches) {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  function updateTransform() {
+    img.style.transform =
+      `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  }
+
+  function limitBounds() {
+    const rect = wrapper.getBoundingClientRect();
+    const imgW = rect.width * scale;
+    const imgH = rect.height * scale;
+
+    const maxX = (imgW - rect.width) / 2;
+    const maxY = (imgH - rect.height) / 2;
+
+    translateX = Math.max(-maxX, Math.min(maxX, translateX));
+    translateY = Math.max(-maxY, Math.min(maxY, translateY));
+  }
+
+  // TOUCH START
+  img.addEventListener("touchstart", (e) => {
+
+    const now = Date.now();
+    if (now - lastTap < 300) {
+      scale = scale > 1 ? 1 : 2.5;
+      translateX = 0;
+      translateY = 0;
+      updateTransform();
+    }
+    lastTap = now;
+
+    if (e.touches.length === 2) {
+      startDistance = getDistance(e.touches);
+      lastScale = scale;
+    }
+
+    if (e.touches.length === 1 && scale > 1) {
+      startX = e.touches[0].clientX - translateX;
+      startY = e.touches[0].clientY - translateY;
+    }
+
+  }, { passive: true });
+
+  // TOUCH MOVE
+  img.addEventListener("touchmove", (e) => {
+
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const newDistance = getDistance(e.touches);
+      scale = lastScale * (newDistance / startDistance);
+      scale = Math.max(1, Math.min(scale, 4));
+      limitBounds();
+      updateTransform();
+    }
+
+    if (e.touches.length === 1 && scale > 1) {
+      e.preventDefault();
+      translateX = e.touches[0].clientX - startX;
+      translateY = e.touches[0].clientY - startY;
+      limitBounds();
+      updateTransform();
+    }
+
+  }, { passive: false });
+
+  img.addEventListener("touchend", () => {
+    if (scale === 1) {
+      translateX = 0;
+      translateY = 0;
+      updateTransform();
+    }
+  });
+
 });
 
+
+// =========================
+// === QR FUNCTIONS ========
+// =========================
 
 function showQR() {
 
   const modal = document.getElementById("qrModal");
   modal.classList.remove("hidden");
 
-  // ОЧИЩАЕМ СТАРЫЙ ТАЙМЕР
   if (qrInterval) {
     clearInterval(qrInterval);
     qrInterval = null;
@@ -111,13 +214,10 @@ function showQR() {
     let seconds = time < 10 ? "0" + time : time;
     timerEl.innerText = "Срок действия: 00:" + seconds;
 
-    if (time <= 0) {
-      closeQR();
-    }
+    if (time <= 0) closeQR();
 
   }, 1000);
 }
-
 
 function closeQR() {
   const modal = document.getElementById("qrModal");
@@ -129,39 +229,3 @@ function closeQR() {
 
   modal.classList.add("hidden");
 }
-
-const img = document.getElementById("zoomImage");
-
-let scale = 1;
-let startDistance = 0;
-
-function getDistance(touches) {
-  const dx = touches[0].clientX - touches[1].clientX;
-  const dy = touches[0].clientY - touches[1].clientY;
-  return Math.sqrt(dx * dx + dy * dy);
-}
-
-img.addEventListener("touchstart", (e) => {
-  if (e.touches.length === 2) {
-    startDistance = getDistance(e.touches);
-  }
-}, { passive: true });
-
-img.addEventListener("touchmove", (e) => {
-  if (e.touches.length === 2) {
-    e.preventDefault();
-
-    const newDistance = getDistance(e.touches);
-    let newScale = scale * (newDistance / startDistance);
-
-    newScale = Math.max(1, Math.min(newScale, 4));
-    img.style.transform = `scale(${newScale})`;
-  }
-}, { passive: false });
-
-img.addEventListener("touchend", (e) => {
-  if (e.touches.length < 2) {
-    const transform = img.style.transform.match(/scale\(([^)]+)\)/);
-    if (transform) scale = parseFloat(transform[1]);
-  }
-});
