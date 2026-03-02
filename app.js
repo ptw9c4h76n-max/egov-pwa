@@ -129,3 +129,39 @@ function closeQR() {
 
   modal.classList.add("hidden");
 }
+
+const img = document.getElementById("zoomImage");
+
+let scale = 1;
+let startDistance = 0;
+
+function getDistance(touches) {
+  const dx = touches[0].clientX - touches[1].clientX;
+  const dy = touches[0].clientY - touches[1].clientY;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+img.addEventListener("touchstart", (e) => {
+  if (e.touches.length === 2) {
+    startDistance = getDistance(e.touches);
+  }
+}, { passive: true });
+
+img.addEventListener("touchmove", (e) => {
+  if (e.touches.length === 2) {
+    e.preventDefault();
+
+    const newDistance = getDistance(e.touches);
+    let newScale = scale * (newDistance / startDistance);
+
+    newScale = Math.max(1, Math.min(newScale, 4));
+    img.style.transform = `scale(${newScale})`;
+  }
+}, { passive: false });
+
+img.addEventListener("touchend", (e) => {
+  if (e.touches.length < 2) {
+    const transform = img.style.transform.match(/scale\(([^)]+)\)/);
+    if (transform) scale = parseFloat(transform[1]);
+  }
+});
