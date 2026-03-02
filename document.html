@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="stylesheet" href="style.css">
 
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
@@ -17,32 +17,20 @@
 <div class="title">Удостоверение личности</div>
 
 <div class="tabs">
-  <div class="tab active" id="tabDoc" onclick="showDocument()">Документ</div>
-  <div class="tab" id="tabReq" onclick="showRequisites()">Реквизиты</div>
+  <div class="tab active" id="tabDoc">Документ</div>
+  <div class="tab" id="tabReq">Реквизиты</div>
 </div>
 
-<!-- ДОКУМЕНТ -->
 <div id="documentSection">
 
 <pinch-zoom>
   <img src="your-id.jpg" class="document-image">
 </pinch-zoom>
 
-<div class="primary-btn" onclick="openAccess()">Открыть доступ</div>
-
-<div id="qrModal" class="qr-modal hidden">
-  <div class="qr-sheet">
-    <div class="drag-line"></div>
-    <h2>Доступ к документу</h2>
-    <div id="qrcode"></div>
-    <div id="timer" class="timer"></div>
-    <div id="shortCode" class="short-code"></div>
-  </div>
-</div>
+<div class="primary-btn" id="openAccessBtn">Открыть доступ</div>
 
 </div>
 
-<!-- РЕКВИЗИТЫ -->
 <div id="requisitesSection" class="hidden">
 
 <div class="info-item">
@@ -60,10 +48,20 @@
   <div class="value">01.01.2000</div>
 </div>
 
-<div class="primary-btn" onclick="shareData()">Отправить реквизиты</div>
+<div class="primary-btn" id="shareBtn">Отправить реквизиты</div>
 
 </div>
 
+</div>
+
+<div id="qrModal" class="qr-modal hidden">
+  <div class="qr-sheet">
+    <div class="drag-line"></div>
+    <h2>Доступ к документу</h2>
+    <div id="qrcode"></div>
+    <div id="timer" class="timer"></div>
+    <div id="shortCode" class="short-code"></div>
+  </div>
 </div>
 
 <script src="app.js"></script>
