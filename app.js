@@ -1,4 +1,5 @@
 let qrInterval = null;
+
 document.addEventListener("DOMContentLoaded", function() {
 
   const tabDoc = document.getElementById("tabDoc");
@@ -41,6 +42,40 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
+  // === Swipe down ===
+  const qrModal = document.getElementById("qrModal");
+
+  let startY = 0;
+  let currentY = 0;
+  let isDragging = false;
+
+  qrModal.addEventListener("touchstart", (e) => {
+    startY = e.touches[0].clientY;
+    isDragging = true;
+  });
+
+  qrModal.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+
+    currentY = e.touches[0].clientY;
+    let diff = currentY - startY;
+
+    if (diff > 0) {
+      qrModal.style.transform = `translateY(${diff}px)`;
+    }
+  });
+
+  qrModal.addEventListener("touchend", () => {
+    let diff = currentY - startY;
+
+    if (diff > 120) {
+      closeQR();
+    }
+
+    qrModal.style.transform = "translateY(0)";
+    isDragging = false;
+  });
+
 });
 
 
@@ -48,6 +83,12 @@ function showQR() {
 
   const modal = document.getElementById("qrModal");
   modal.classList.remove("hidden");
+
+  // ОЧИЩАЕМ СТАРЫЙ ТАЙМЕР
+  if (qrInterval) {
+    clearInterval(qrInterval);
+    qrInterval = null;
+  }
 
   const randomCode = Math.floor(100000 + Math.random() * 900000);
   document.getElementById("shortCode").innerText = randomCode;
@@ -64,52 +105,27 @@ function showQR() {
   const timerEl = document.getElementById("timer");
   timerEl.innerText = "Срок действия: 01:00";
 
-  const interval = setInterval(() => {
+  qrInterval = setInterval(() => {
     time--;
+
     let seconds = time < 10 ? "0" + time : time;
     timerEl.innerText = "Срок действия: 00:" + seconds;
 
     if (time <= 0) {
-      clearInterval(interval);
-      modal.classList.add("hidden");
+      closeQR();
     }
+
   }, 1000);
 }
+
+
 function closeQR() {
   const modal = document.getElementById("qrModal");
+
+  if (qrInterval) {
+    clearInterval(qrInterval);
+    qrInterval = null;
+  }
+
   modal.classList.add("hidden");
 }
-// === Swipe down для закрытия QR ===
-
-const qrModal = document.getElementById("qrModal");
-
-let startY = 0;
-let currentY = 0;
-let isDragging = false;
-
-qrModal.addEventListener("touchstart", (e) => {
-  startY = e.touches[0].clientY;
-  isDragging = true;
-});
-
-qrModal.addEventListener("touchmove", (e) => {
-  if (!isDragging) return;
-
-  currentY = e.touches[0].clientY;
-  let diff = currentY - startY;
-
-  if (diff > 0) {
-    qrModal.style.transform = `translateY(${diff}px)`;
-  }
-});
-
-qrModal.addEventListener("touchend", () => {
-  let diff = currentY - startY;
-
-  if (diff > 120) {
-    closeQR();
-  }
-
-  qrModal.style.transform = "translateY(0)";
-  isDragging = false;
-});
