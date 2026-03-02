@@ -1,6 +1,6 @@
 {
-  "name": "Цифровые документы",
-  "short_name": "Документы",
+  "name": "eGov Mobile",
+  "short_name": "eGov Mobile",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -8,12 +8,12 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "https://via.placeholder.com/192",
-      "sizes": "192x192",
+      "src": "/icons/app-icon.png",
+      "sizes": "180x180",
       "type": "image/png"
     },
     {
-      "src": "https://via.placeholder.com/512",
+      "src": "/icons/app-icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
