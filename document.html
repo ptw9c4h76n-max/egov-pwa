@@ -7,7 +7,7 @@ content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=
 <link rel="stylesheet" href="style.css">
 
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
-<script src="https://unpkg.com/pinch-zoom-js@2.3.4/dist/pinch-zoom.umd.js"></script>
+
 
 <title>Документ</title>
 </head>
@@ -24,9 +24,9 @@ content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=
 
 <div id="documentSection">
 
-<pinch-zoom min-scale="1" max-scale="4">
-  <img src="my-id.jpg" class="document-image">
-</pinch-zoom>
+<div class="zoom-wrapper">
+  <img src="my-id.jpg" class="document-image" id="zoomImage">
+</div>
 
 <div class="primary-btn" id="openAccessBtn">Открыть доступ</div>
 
