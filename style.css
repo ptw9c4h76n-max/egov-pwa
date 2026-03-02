@@ -132,8 +132,17 @@ body {
 .hidden {
   display: none !important;
 }
+
+/* === Центрирование QR === */
 #qrcode {
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#qrcode canvas,
+#qrcode img {
   margin: 0 auto;
+  display: block;
 }
