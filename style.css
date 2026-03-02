@@ -156,5 +156,5 @@ body {
 
 pinch-zoom {
   display: block;
-  touch-action: none;
+  touch-action: pan-x pan-y;
 }
